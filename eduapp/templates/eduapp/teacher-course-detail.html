@@ -1,0 +1,159 @@
+{% extends 'eduapp/main-template.html' %}
+{% load crispy_forms_tags %}
+{% block title %}
+Менің курстарым
+{% endblock %}
+{% block content %}
+{% if course %}
+<div class="detail-blur-p  uk-background-cover uk-light uk-height-medium uk-panel uk-flex uk-flex-center uk-flex-middle"
+    style="background-image: url({{course.cover.url}});">
+    <p class="uk-h1 datail-blur-title">
+        {{course.title}}
+    </p>
+    <div class="detail-blur">
+    </div>
+</div>
+
+<div>
+    <div>
+        <div>
+            <div>
+                <div class="uk-panel uk-panel-box">
+                    <div class="ckeditor-text">
+                        {{course.description|safe}}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div>
+        {% if courses %}
+        <h5 class="uk-modal-title">Сабақтар тізімі</h5>
+        <table class="uk-table custom-table uk-table-middle uk-table-divider">
+            <thead>
+                <tr>
+                    <th class="uk-width-small">№</th>
+                    <th>Тақырыбы</th>
+                    <th>Әрекет</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for course in courses %}
+                <tr>
+                    <td>
+                        {{course.priority}}
+                    </td>
+                    <td>
+                        {{course.title}}
+                    </td>
+                    <td>
+                        <a href="{% url 'edu-app:CourseDetail' course.pk %}" class="uk-button uk-button-default">
+                            Ашу
+                        </a>
+                        <a href="{% url 'edu-app:ContentUpdate' course.pk %}" class="uk-button uk-button-default">
+                            Өзгерту
+                        </a>
+                        <a href="{% url 'edu-app:ContentDelete' course.pk %}" class="uk-button uk-button-danger">
+                            Өшіру
+                        </a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% endif %}
+
+        {% if tests %}
+        <div>
+            <h5 class="uk-modal-title">Тесттер тізімі</h5>
+            <ul class="uk-list">
+                {% for test in tests %}
+                <li>
+                    <a href="{% url 'edu-app:ControlTest' test.pk %}" class="uk-button">
+                        {{test.title}}
+                    </a>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
+        <div class="uk-text-right">
+            <a href="{% url 'edu-app:CreateTest' course.pk %}" class="uk-button uk-button-primary" type="button">
+                Тест қосу
+            </a>
+            <button class="uk-button uk-button-primary" type="button" uk-toggle="target: #toggle-usage">
+                Жаңа сабақ қосу
+            </button>
+            <br>
+        </div>
+        <div>
+            <div id="toggle-usage" hidden>
+                <form class="edu-form" enctype="multipart/form-data" method="post">
+                    {% csrf_token %}
+                    {{form|crispy|safe}}
+                    {{form.media}}
+                    <button class="uk-button uk-margin-small-top uk-button-primary" type="submit">
+                        Қосу
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <div class="uk-margin-top">
+            {% if results %}
+            <h4>
+                Тапсырылған тест қорытындысы
+            </h4>
+            <table class="uk-table uk-table-striped">
+                <thead>
+                    <tr class="uk-background-primary">
+                        <th class="uk-text-center uk-color-white">
+                            <span class="uk-margin-small-right " uk-icon="icon: user; ratio: 1.2"></span>
+                        </th>
+                        <th class="uk-text-center uk-color-white">
+                            <span class="uk-margin-small-right " uk-icon="icon: file-text; ratio: 1.2"></span>
+                        </th>
+                        <th class="uk-text-center uk-color-white">
+                            <span class="uk-margin-small-right " uk-icon="icon: file-edit; ratio: 1.2"></span>
+                        </th>
+                        <th class="uk-text-center uk-color-white">
+                            <span class="uk-margin-small-right " uk-icon="icon: check; ratio: 1.2"></span>
+                        </th>
+                        <th class="uk-text-center uk-color-white">
+                            <span class="uk-margin-small-right " uk-icon="icon: star; ratio: 1.2"></span>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for result in results %}
+                    <tr>
+                        <td class="uk-text-center">
+                            <span
+                                class="avatar uk-margin-auto-right uk-margin-auto-left uk-background-cover uk-flex uk-flex-center uk-flex-middle"
+                                style="background-image: url({{result.student.avatar.url}});">
+                            </span>
+                            <span>
+                                {{result.student.user.get_full_name}}
+                            </span>
+                        </td>
+                        <td class="uk-text-center">
+                            {{result.test.course}}
+                        </td>
+                        <td class="uk-text-center">
+                            {{result.test.title}}
+                        </td>
+                        <td class="uk-text-center">
+                            {{result.correct_ans_count}}
+                        </td>
+                        <td class="uk-text-center">
+                            {{result.mark}}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            {% endif %}
+        </div>
+    </div>
+    {% endif %}
+    {% endblock %}

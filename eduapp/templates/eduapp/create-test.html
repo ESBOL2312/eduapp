@@ -1,0 +1,29 @@
+{% extends 'eduapp/main-template.html' %}
+{% load crispy_forms_tags %}
+{% block title %}
+    Жаңа тест
+{% endblock %}
+{% block content %}
+<div class="uk-width-large">
+    <h4>
+        Тест қосу
+    </h4>
+        <form class="form" method="post" enctype="multipart/form-data"> 
+            {% csrf_token %}
+            <input class="uk-input" type="text" name="test_title" placeholder="Тест тақрыбы">
+            <div uk-form-custom>
+                <span class="uk-label uk-label-warning">
+                    xlsx форматындағы файл жүктеңіз
+                </span>
+                <br>
+                <input name="test_file" type="file">
+                <button class="uk-button uk-button-default uk-margin-small-top" type="button" tabindex="-1">Файл жүктеу</button>
+            </div>
+            <div>
+                <button class="uk-button uk-button-primary uk-margin-small-top" type="submit">
+                    Қосу
+                </button>
+            </div>
+        </form>
+    </div>
+{% endblock %}

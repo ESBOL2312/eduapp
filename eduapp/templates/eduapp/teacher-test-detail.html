@@ -1,0 +1,25 @@
+{% extends 'eduapp/main-template.html' %}
+{% load crispy_forms_tags %}
+{% block title %}
+    тест
+{% endblock %}
+{% block content %}
+        <div class="uk-width-xlarge">
+            {% for test in tests %}
+                <div>
+                    <span>
+                        {{ forloop.counter }}.{{test.question}}
+                    </span>
+                        {% for i in  test.variant%}
+                        
+                            <div class="{% if test.correct == forloop.counter0 %} uk-alert-success{% endif %}" uk-alert>
+                                <p>
+                                    {{ forloop.counter }}-{{i}}    
+                                </p>
+                            </div>
+                        {% endfor %}
+                </div>
+            {% endfor %}
+        </div>
+
+{% endblock %}

@@ -1,0 +1,42 @@
+{% extends 'eduapp/main-template.html' %}
+{% load crispy_forms_tags %}
+{% block title %}
+    Жаңа курс қосу
+{% endblock %}
+{% block content %}
+    {% if course %}
+        <span class="uk-badge">
+            {{course.course.title}}
+        </span>
+        <h2 class="uk-h2 uk-margin-remove-top">
+            {{course.title}}
+        </h2>
+        <hr class="uk-divider-icon">
+        <div uk-grid>
+            <div class="uk-width-1-6">
+            </div>
+            <div class="uk-width-expand@m">
+                <video src="{{course.video.url}}" controls playsinlineuk-video></video>
+                <hr class="uk-divider-icon">
+                <p>
+                    {{course.text|safe}}
+                </p>
+                {% if course.document %}
+                    Сабақ материалы
+                    <a href="{{course.document.url}}" download>
+                        {{course.document}}
+                    </a>
+                {% endif %}
+                <hr class="uk-divider-icon">
+                <h5 class="uk-text-bolder uk-h5">
+                    Үй тапсырмасы
+                </h5>
+                <p>
+                    {{course.homework|safe}}
+                </p>
+            </div>
+            <div class="uk-width-1-6">
+            </div>
+        </div>
+    {% endif %}
+{% endblock %}

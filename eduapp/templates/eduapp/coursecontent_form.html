@@ -1,0 +1,17 @@
+{% extends 'eduapp/main-template.html' %}
+{% load crispy_forms_tags %}
+{% block title %}
+    Сабақты Өзгерту
+{% endblock %}
+{% block content %}
+    {% if form %}
+        <form class="form edu-form" method="post" class="uk-form-width-large" enctype="multipart/form-data"> 
+            {% csrf_token %}
+            {{form|crispy|safe}}
+            {{form.media}}
+            <button class="uk-button uk-margin-small-top uk-button-primary" type="submit">
+                Өзгерту
+            </button>
+        </form>
+    {% endif %}
+{% endblock %}

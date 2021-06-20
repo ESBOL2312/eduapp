@@ -1,0 +1,72 @@
+{% extends 'eduapp/main-template.html' %}
+{% load crispy_forms_tags %}
+{% block title %}
+Менің курстарым
+{% endblock %}
+{% block content %}
+{% if course %}
+
+<div>
+    <h2 class="uk-h2">
+{{course.title}}
+    </h2>
+    
+</div>
+<div class="detail-blur-p  uk-background-cover uk-light uk-height-medium uk-panel uk-flex uk-flex-center uk-flex-middle"
+    style="background-image: url({{course.cover.url}});">
+</div>
+
+<div uk-grid>
+    <div class="uk-width-1-4@s">
+        <ul class="uk-list">
+            <h4 class="uk-h4 uk-margin-small-top">
+                Content list
+            </h4>
+            {% for course in courses %}
+            <li>
+                <a href="{% url 'edu-app:CourseDetail' course.pk %}" class="">
+                    {{course.priority}}.
+                    {{course.title}}
+                </a>
+            </li>
+            {% endfor %}
+        </ul>
+        <!-- {% if admission == False %}
+        <ul class="uk-list">
+            <h4 class="uk-h4 uk-margin-small-top">
+                Бақылау тесті тізімі
+            </h4>
+            {% for test in tests %}
+            <li>
+                <a href="{% url 'edu-app:PastTest' test.pk %}" class="">
+                    {{ forloop.counter }}.{{test.title}}
+                </a>
+            </li>
+            {% endfor %}
+        </ul>
+        {% endif %} -->
+    </div>
+    <div class="uk-width-expand">
+        <div class="uk-child-width-1-1@s" uk-grid>
+            <div>
+                <div class="uk-panel uk-panel-box uk-margin-small-top">
+                    <div class="ckeditor-text">
+                        {{course.description|safe}}
+                    </div>
+                    {%if course.aim%}
+                    <div class="ckeditor-text">
+                        {{course.aim|safe}}
+                    </div>
+                    {% endif %}
+                </div>
+                {% if admission == True %}
+                <a href="{% url 'edu-app:CourseAdd' course.pk %}" class="uk-text-right uk-button uk-button-primary">
+                    Read later
+                </a>
+            {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
+{% endblock %}

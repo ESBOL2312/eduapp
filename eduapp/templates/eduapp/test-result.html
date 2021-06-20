@@ -1,0 +1,56 @@
+{% extends 'eduapp/main-template.html' %}
+{% load crispy_forms_tags %}
+{% block title %}
+тест нәтижелері
+{% endblock %}
+{% block content %}
+        <div uk-grid>
+            <h4>
+                Тапсырылған тест нәтижелері
+            </h4>
+            <table class="uk-table uk-table-striped">
+                <thead>
+                    <tr class="uk-background-primary"> 
+                        <th class="uk-text-center uk-color-white">
+                            <span class="uk-margin-small-right " uk-icon="icon: user; ratio: 1.5"></span>
+                        </th>
+                        <th class="uk-text-center uk-color-white">
+                            <span class="uk-margin-small-right " uk-icon="icon: file-text; ratio: 1.5"></span>
+                        </th>
+                        <th class="uk-text-center uk-color-white">
+                            <span class="uk-margin-small-right " uk-icon="icon: file-edit; ratio: 1.5"></span>
+                        </th>
+                        <th class="uk-text-center uk-color-white">
+                            <span class="uk-margin-small-right " uk-icon="icon: check; ratio: 1.5"></span>
+                        </th>
+                        <th class="uk-text-center uk-color-white">
+                            <span class="uk-margin-small-right " uk-icon="icon: star; ratio: 1.5"></span>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for result in results %}
+                        <tr>
+                            <td class="uk-text-center">
+                                <span class="avatar uk-margin-auto-right uk-margin-auto-left uk-background-cover uk-flex uk-flex-center uk-flex-middle" style="background-image: url({{user.aps.avatar.url}});">
+                                </span>
+                            </td>
+                            <td class="uk-text-center">
+                                {{result.test.course}}
+                            </td>
+                            <td class="uk-text-center">
+                                {{result.test.title}}
+                            </td>
+                            <td class="uk-text-center">
+                                {{result.correct_ans_count}}
+                            </td>
+                            <td class="uk-text-center">
+                                {{result.mark}}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            </div>
+        </div>
+{% endblock %}

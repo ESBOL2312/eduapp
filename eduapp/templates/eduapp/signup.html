@@ -1,0 +1,31 @@
+{% extends 'eduapp/main-template.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block title %}
+    Жүйеге тіркелу
+{% endblock %}
+{% block content %}
+    {% if form %}
+    <div uk-grid>
+        <div class="uk-width-2-5@m">
+            <img src="{% static 'eduapp/img/3.jpg' %}" alt="" class="uk-visible@s">
+        </div>
+        <div class="uk-width-expand">
+            <div class="uk-flex uk-flex-column uk-flex-center uk-height-1-1">
+                <h2>
+                    Тіркелу
+                </h2>
+                <form class="form" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {{form|crispy}}
+                    <div class="uk-text-right">
+                        <button class="uk-button uk-margin-small-top uk-button-primary" type="submit">
+                            Тіркелу
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+{% endblock %}

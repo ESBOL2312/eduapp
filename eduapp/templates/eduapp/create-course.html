@@ -1,0 +1,20 @@
+{% extends 'eduapp/main-template.html' %}
+{% load crispy_forms_tags %}
+{% block title %}
+    Жаңа курс қосу
+{% endblock %}
+{% block content %}
+    <h2 class="h2">
+        Жаңа  курс
+    </h2>
+    {% if form %}
+        <form class="form" method="post" class="uk-form-width-large" enctype="multipart/form-data"> 
+            {% csrf_token %}
+            {{form|crispy|safe}}
+            {{form.media}}
+            <button class="uk-button uk-button-primary uk-margin-small-top" type="submit">
+                Қосу
+            </button>
+        </form>
+    {% endif %}
+{% endblock %}
