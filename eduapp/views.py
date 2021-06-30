@@ -31,14 +31,16 @@ class MainPage(View):
         last_courses = Course.objects.all().order_by('-pk')[:4]
         template = 'eduapp/main-student.html'
         if user.is_authenticated:
-            if user.aps.type == 'teacher':
-                last_courses = Course.objects.filter(creator=user.aps)
-                template = 'eduapp/main.html'
-        context = {
-            'categories':category,
-            'lastcourses':last_courses
-        }
-        return render(request, template, context)
+            if user.is_superuser:
+                logout(request)
+                messages.add_message(request, messages.INFO, 'Please, log in')
+                return HttpResponseRedirect('/')
+            print(user)
+            context = {
+                'categories':category,
+                'lastcourses':last_courses
+            }
+            return render(request, template, context)
 
 # class RegistrationView(View):
 #     def get(self, request, *args, **kwargs):
@@ -83,6 +85,9 @@ class LoginView(View):
         context = {
             'form': form,
         }
+        user = request.user
+        if user.is_authenticated:
+            return HttpResponseRedirect('/main')
         return render(request, 'eduapp/login.html', context)
 
     def post(self, request, *args, **kwargs):
@@ -102,6 +107,14 @@ class LoginView(View):
         }
         return render(request, 'eduapp/login.html', context)
 
+class Search(View):
+    def post(self, request, *args, **kwargs):
+        quy= request.POST.get("quy")
+        list = CourseContent.objects.filter(title__icontains=quy)
+        context = {
+            'list':list
+        }
+        return render(request, 'eduapp/search_res.html', context)
 # class CreateCourse(View):
 #     def get(self, request, *args, **kwargs):
 #         form = CourseCreateForm(request.POST or None)
@@ -293,14 +306,14 @@ class LearnStudentCourseDetail(View):
             return HttpResponseRedirect('/')
         course_pk = kwargs.get('pk')
         course = Course.objects.get(pk = course_pk)
-        ParentTest.objects.filter(course=course)
+      
         child_courses = CourseContent.objects.filter(course=course).order_by('-priority').reverse()
-        tests = ParentTest.objects.filter(course = course)
+       
         context = {
             'course': course,
             'courses':child_courses,
             'admission': False,
-            'tests': tests,
+            
         }
         return render(request, 'eduapp/student-course-detail.html', context)
     # def post(self, request,  *args, **kwargs):

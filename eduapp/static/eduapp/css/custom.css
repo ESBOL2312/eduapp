@@ -135,3 +135,12 @@ label,
 .alert.alert-block.alert-danger li {
 	color: #fff;
 }
+.uk-search {
+	width: 100%;
+}
+.uk-search-input {
+	color: #000 !important;
+}
+.uk-dropdown {
+	padding: 0;
+}

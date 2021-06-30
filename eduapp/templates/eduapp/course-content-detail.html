@@ -1,38 +1,38 @@
 {% extends 'eduapp/main-template.html' %}
 {% load crispy_forms_tags %}
 {% block title %}
-    Сабақ
+content
 {% endblock %}
 {% block content %}
-    {% if course %}
-        <span class="uk-badge uk-margin-bottom">
-            {{course.course.title}}
-        </span>
-        <h2 class="uk-h2 uk-margin-remove-top">
-            {{course.title}}
-        </h2>
-        {%if course.video%}
-        <hr class="uk-divider-icon">
-            <video src="{{course.video.url}}" controls playsinlineuk-video></video>
-            {%endif%}
-                
-                <hr class="uk-divider-icon">
-                <div class="ckeditor-text">
-                    {{course.text|safe}}
-                </div>
-                {% if course.homework%}
-                <div class="ckeditor-text">
-                    {{course.text|safe}}
-                </div>
-                {%endif%}
-                {% if course.document %}
-                <span class="uk-white-text">
-                    Attached file:
-                </span>
-                    <a href="{{course.document.url}}" download>
-                        {{course.document}}
-                    </a>
-                {% endif %}
-                <hr class="uk-divider-icon">
-    {% endif %}
+{% if course %}
+<span class="uk-badge uk-margin-bottom">
+    {{course.course.title}}
+</span>
+<h2 class="uk-h2 uk-margin-remove-top">
+    {{course.title}}
+</h2>
+{%if course.video%}
+<hr class="uk-divider-icon">
+<video src="{{course.video.url}}" controls playsinlineuk-video></video>
+{%endif%}
+
+<hr class="uk-divider-icon">
+<div class="ckeditor-text">
+    {{course.text|safe}}
+</div>
+{% if course.homework%}
+<div class="ckeditor-text">
+    {{course.text|safe}}
+</div>
+{%endif%}
+{% if course.document %}
+<span class="uk-white-text">
+    Attached file:
+</span>
+<a href="{{course.document.url}}" download>
+    {{course.document}}
+</a>
+{% endif %}
+<hr class="uk-divider-icon">
+{% endif %}
 {% endblock %}

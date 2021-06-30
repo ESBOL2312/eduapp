@@ -1,19 +1,18 @@
 {% extends 'eduapp/main-template.html' %}
 {% load crispy_forms_tags %}
 {% block title %}
-Менің курстарым
+Spaces
 {% endblock %}
 {% block content %}
 {% if course %}
 
 <div>
     <h2 class="uk-h2">
-{{course.title}}
+        {{course.title}}
     </h2>
-    
+
 </div>
-<div class="detail-blur-p  uk-background-cover uk-light uk-height-medium uk-panel uk-flex uk-flex-center uk-flex-middle"
-    style="background-image: url({{course.cover.url}});">
+<div class="detail-blur-p  uk-background-cover uk-light uk-height-medium uk-panel uk-flex uk-flex-center uk-flex-middle" style="background-image: url({{course.cover.url}});">
 </div>
 
 <div uk-grid>
@@ -63,7 +62,7 @@
                 <a href="{% url 'edu-app:CourseAdd' course.pk %}" class="uk-text-right uk-button uk-button-primary">
                     Read later
                 </a>
-            {% endif %}
+                {% endif %}
             </div>
         </div>
     </div>

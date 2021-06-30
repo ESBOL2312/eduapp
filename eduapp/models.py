@@ -8,6 +8,8 @@ from django.dispatch import receiver
 from ckeditor.fields import RichTextField
 from ckeditor_uploader.fields import RichTextUploadingField
 from django.contrib.postgres.fields import ArrayField
+
+from django.contrib.postgres.search import SearchVectorField
 User = get_user_model()
 # Create your models here.
 

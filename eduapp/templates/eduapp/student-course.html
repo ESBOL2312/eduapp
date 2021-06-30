@@ -1,29 +1,29 @@
 {% extends 'eduapp/main-template.html' %}
 {% load crispy_forms_tags %}
 {% block title %}
-    Менің курстарым
+Spaces
 {% endblock %}
 {% block content %}
-    {% if courses %}
-    <div class="uk-grid-match uk-child-width-1-3@s uk-text-center" uk-grid>
-       {% for course in courses.courses.all %}
-           <a  class="uk-link-heading" href="{% url 'edu-app:LearnCourseShow' course.pk %}">
-                <div class="uk-card uk-card-default uk-card-hover">
-                    <div class="uk-card-badge uk-label">
-                        {{course.category}}
-                    </div>
-                    <div class="uk-card-media-top">
-                        <div class="uk-background-cover uk-height-small uk-panel uk-flex uk-flex-center uk-flex-middle" style="background-image: url({{course.cover.url}});">
-                        </div>
-                    </div>
-                    <div class="uk-card-body">
-                        <h3 class="uk-card-title">
-                            {{course.title}}
-                        </h3>
-                    </div>
+{% if courses %}
+<div class="uk-grid-match uk-child-width-1-3@s uk-text-center" uk-grid>
+    {% for course in courses.courses.all %}
+    <a class="uk-link-heading" href="{% url 'edu-app:LearnCourseShow' course.pk %}">
+        <div class="uk-card uk-card-default uk-card-hover">
+            <div class="uk-card-badge uk-label">
+                {{course.category}}
+            </div>
+            <div class="uk-card-media-top">
+                <div class="uk-background-cover uk-height-small uk-panel uk-flex uk-flex-center uk-flex-middle" style="background-image: url({{course.cover.url}});">
                 </div>
-            </a>
-        {% endfor %}
-    </div>
-    {% endif %}
+            </div>
+            <div class="uk-card-body">
+                <h3 class="uk-card-title">
+                    {{course.title}}
+                </h3>
+            </div>
+        </div>
+    </a>
+    {% endfor %}
+</div>
+{% endif %}
 {% endblock %}

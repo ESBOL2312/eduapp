@@ -8,6 +8,7 @@ from . import views
 
 urlpatterns = [
     path('main/', views.MainPage.as_view(), name='MainPage'),
+    path('search', views.Search.as_view(),name="SearchPage"),
     # path('signup/', views.RegistrationView.as_view(), name='SignUp'),
     path('', views.LoginView.as_view(), name='SignIn'),
     path('logout/', LogoutView.as_view(next_page="/"), name='LogOut'),

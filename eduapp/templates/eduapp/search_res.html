@@ -1,0 +1,24 @@
+{% extends 'eduapp/main-template.html' %}
+{% load crispy_forms_tags %}
+{% block title %}
+Search
+{% endblock %}
+{% block content %}
+
+
+<ul class="uk-list uk-list-decimal">
+    {% if list %}
+    {% for course in list %}
+    <li>
+        <a href="{% url 'edu-app:CourseDetail' course.pk %}" class="">
+            {{course.title}}
+        </a>
+    </li>
+    {% endfor %}
+    {% else %}
+    not result
+    {% endif %}
+
+</ul>
+
+{% endblock %}
